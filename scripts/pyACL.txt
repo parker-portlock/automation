@@ -1,0 +1,5 @@
+access-list prod line 1 permit tcp server1 server2 eq 3389
+access-list internal line 2 permit udp server3 server4 eq 1434
+access-list dmz line 3 permit ip network1 network2
+access-list stage line 4 permit tcp eq server3 22 server4
+access-list uat line 5 permit tcp object-group sql server1 server2

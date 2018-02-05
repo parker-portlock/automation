@@ -1,19 +1,18 @@
 import csv
-file = open("pyASA.txt","a+")
+file = open("pyObject.txt","a+")
 continueQuery = "y"
 line_number = 0
 
 #opens CSV
-with open('../files/addr.csv', 'rb') as csvfile:
-    				reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-    				reader = list(reader)
+with open('../files/addr.csv', 'rb') as csvAddr:
+    				readerAddr = csv.reader(csvAddr, delimiter=',', quotechar='|')
+    				readerAddr = list(readerAddr)
 
 #Begins Program
 
 while (continueQuery == "y"):
 
-#Object name and type creation
-#	objectName = raw_input ("Please enter object name: ")
+#Object type definition
 	objectType = raw_input ("Please enter the object type (network, service) ")
 	
 #Network object creation
@@ -22,24 +21,22 @@ while (continueQuery == "y"):
 		if netType == "host":
 			loadFile = raw_input ("Did you load the addr.csv in /files? (y/n) ")
 			if loadFile == "y":
-				for i in range(len(reader)):
-					print >> file, "object", objectType, reader[i][1], "\n", "host", reader[i][0]
+				for i in range(len(readerAddr)):
+					print >> file, "object", objectType, readerAddr[i][1], "\n", "host", readerAddr[i][0]
 			else:
 				print "invalid input"
 			continueQuery = raw_input ("Do you have any more objects? (y/n) ")
 		elif netType == "subnet":
 			loadFile = raw_input ("Did you load the object.csv? (y/n) ")
 			if loadFile == "y":
-				for i in range(len(reader)):
-					print >> file, "object", objectType, reader[i][1], "\n", "subnet", reader[i][0], reader[i][2]
+				for i in range(len(readerAddr)):
+					print >> file, "object", objectType, readerAddr[i][1], "\n", "subnet", readerAddr[i][0], readerAddr[i][2]
 			else:
 				print "invalid input"
 
 			continueQuery = raw_input ("Do you have any more object files? (y/n) ")
-
-
-#		else:
-#			print "Invalid Input"
+		else:
+			print "Invalid Input"
 #	
 #	
 #	#service object creation
