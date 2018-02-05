@@ -2,15 +2,13 @@ import csv
 file = open("pyASA.txt","a+")
 continueQuery = "y"
 line_number = 0
-column = 0
-
 
 #opens CSV
 with open('../files/addr.csv', 'rb') as csvfile:
     				reader = csv.reader(csvfile, delimiter=',', quotechar='|')
     				reader = list(reader)
 
-
+#Begins Program
 
 while (continueQuery == "y"):
 
@@ -25,7 +23,7 @@ while (continueQuery == "y"):
 			loadFile = raw_input ("Did you load the addr.csv in /files? (y/n) ")
 			if loadFile == "y":
 				for i in range(len(reader)):
-					print "object", objectType, reader[i][1], "\n", "host", reader[i][0]
+					print >> file, "object", objectType, reader[i][1], "\n", "host", reader[i][0]
 			else:
 				print "invalid input"
 			continueQuery = raw_input ("Do you have any more objects? (y/n) ")
@@ -33,7 +31,7 @@ while (continueQuery == "y"):
 			loadFile = raw_input ("Did you load the object.csv? (y/n) ")
 			if loadFile == "y":
 				for i in range(len(reader)):
-					print "object", objectType, reader[i][1], "\n", "subnet", reader[i][0], reader[i][2]
+					print >> file, "object", objectType, reader[i][1], "\n", "subnet", reader[i][0], reader[i][2]
 			else:
 				print "invalid input"
 
