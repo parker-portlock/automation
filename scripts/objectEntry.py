@@ -1,5 +1,5 @@
 import csv
-file = open("pyObject.txt","a+")
+file = open("../output/pyObject.txt","a+")
 continueQuery = "y"
 line_number = 0
 
@@ -66,4 +66,4 @@ while (continueQuery == "y"):
 #			print "Invalid Input"
 #	else:
 #		print "Invalid Input"
-print "Thank You! Your ASA script is ready under the filename pyASA.txt. Don't forget to Like and Subscribe!"#
+print "Thank You! Your ASA script is ready at /output/pyObject.txt. Don't forget to Like and Subscribe!"
