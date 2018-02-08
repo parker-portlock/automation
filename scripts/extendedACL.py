@@ -1,5 +1,4 @@
 #extendedACL.py because we know da wae
-
 import csv
 file = open("pyACL.txt","a+")
 continueQuery = "y"
