@@ -1,0 +1,7 @@
+object network DOMAIN41 
+ host ﻿10.10.106.8
+object network DOMAIN42 
+ host 10.10.106.5
+object-group network OG_SWAGSRV
+network-object object DOMAIN41
+network-object object DOMAIN42
