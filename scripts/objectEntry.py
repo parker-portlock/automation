@@ -1,7 +1,7 @@
 import csv
 import sys
 import numpy
-file = open("../output/pyObject.txt","w+")
+file = open("../output/pyObject.txt","a+")
 continueQuery = "y"
 
 #python-numpy package required
@@ -78,7 +78,7 @@ while (continueQuery == "y"):
 #		print "Invalid Input"
 
 
-
+#Creates object-groups if requested
 groupQuery = input("Would you like to create an object-group with these servers? (y/n) ")
 while groupQuery == "y":
 	groupName = input("Please enter a name for the object group starting with 'OG_': ")
