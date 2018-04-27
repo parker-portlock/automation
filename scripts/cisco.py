@@ -7,6 +7,7 @@ def objectCreate():
 	file = open("../output/pyObject.txt","a+")
 	continueQuery = "y"
 
+##CSV READ
 	loadFile = input ("Did you load the addr.csv in /files? (y/n) ")
 	if loadFile == "y":
 
