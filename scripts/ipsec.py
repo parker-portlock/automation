@@ -1,11 +1,11 @@
-import cisco
-import csv
+import objectCreate
+import objectGroup
 import sys
-import numpy
 
-print ("Lets create the local address group.")
-cisco.objectCreate()
+
+print ("Creating objects...")
+objectCreate.CiscoObject()
 
 print ("Lets create the remote address group.")
-cisco.objectCreate()
+objectGroup.CiscoGroup()
 

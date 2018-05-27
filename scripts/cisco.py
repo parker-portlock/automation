@@ -50,16 +50,25 @@ def objectCreate():
 	#Creates object-groups if requested
 	groupQuery = input("Would you like to create an object-group with these servers? (y/n) ")
 	while groupQuery == "y":
+
+		objectGroup.CiscoGroup
+
+		#create regular group
 		groupName = input("Please enter a name for the object group starting with 'OG_': ")
 		print("object-group network", groupName, file=open("../output/pyObject.txt","a"))
 		for i in range(len(readerAddr)):
 			print("network-object object", readerAddr[i][1], file=open("../output/pyObject.txt","a"))
-		groupQuery = input("Do you have any more groups? (y/n) ")
+		
+		else:
+			print("Invalid input.")
+
 
 	print ("Thank You! Your ASA script is ready at /output/pyObject.txt. Don't forget to Like and Subscribe!")
 
-#def cryptoACL():
-#
+def cryptoACL():
+	cmapACL = input("Please name the crypto map ACL: ")
+	print("access-list",cmapACL, "extended permit ip object-group", localGroup, "object-group", remoteGroup,  file=open("../output/pyObject.txt","a"))
+	
 #def filterACL():
 #
 #def groupPolicy():
