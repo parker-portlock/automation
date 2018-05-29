@@ -13,7 +13,7 @@ def CiscoGroup():
 		   		localAddr = csv.reader(csvLoc, delimiter=',', quotechar='|')
 		   		localAddr = list(localAddr)
 
-		with open('../files/localObjects.csv', 'rt') as csvRem:
+		with open('../files/remoteObjects.csv', 'rt') as csvRem:
 			remoteAddr = csv.reader(csvRem, delimiter=',', quotechar='|')
 			remoteAddr = list(remoteAddr)
 
