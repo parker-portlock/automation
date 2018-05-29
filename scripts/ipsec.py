@@ -3,9 +3,5 @@ import objectGroup
 import sys
 
 
-print ("Creating objects...")
+print ("Creating objects and groups...")
 objectCreate.CiscoObject()
-
-print ("Lets create the remote address group.")
-objectGroup.CiscoGroup()
-

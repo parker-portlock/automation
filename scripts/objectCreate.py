@@ -43,6 +43,23 @@ def CiscoObject():
 			elif netType == "subnet":
 				for i in range(len(localAddr)):
 					print("object", objectType, localAddr[i][1], "\n", "subnet", localAddr[i][0], localAddr[i][2], file=open("../output/pyObject.txt", "a"))
+			else:
+				print ("Invalid input; exiting...")
+				sys.exit()
+
+#Remote object Creation
+			objectType = input ("Please enter the object type (network, service) ")
+			if objectType == "network":
+				netType = input ("What type of network object? (host, subnet) ")
+				if netType == "host":
+					for i in range(len(remoteAddr)):
+						print("object", objectType, remoteAddr[i][1], "\n", "host", remoteAddr[i][0], file=open("../output/pyObject.txt", "a"))
+				else:
+					print ("invalid input")
+				continueQuery = input ("Do you have any more objects? (y/n) ")
+			elif netType == "subnet":
+				for i in range(len(remoteAddr)):
+					print("object", objectType, remoteAddr[i][1], "\n", "subnet", remoteAddr[i][0], remoteAddr[i][2], file=open("../output/pyObject.txt", "a"))
 				continueQuery = input ("Do you have any more object files? (y/n) ")
 			else:
 				print ("Invalid input; exiting...")
