@@ -21,7 +21,6 @@ def CiscoGroup():
 		localGroupName = input("Please enter the name for the local network group: ")
 		remoteGroupName = input("Please enter the name for the remote network group: ")
 
-		
 
 		#writes local object-group output
 		for i in range(len(localAddr)):
@@ -35,6 +34,7 @@ def CiscoGroup():
 		return localGroupName
 		return remoteGroupName
 
+	#creates regular object-group
 	elif tunnelQuery == "n":
 		with open('../files/addr.csv', 'rt') as csvAddr:
 			readerAddr = csv.reader(csvAddr, delimiter=',', quotechar='|')
