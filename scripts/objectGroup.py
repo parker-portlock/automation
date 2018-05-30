@@ -23,16 +23,16 @@ def CiscoGroup():
 
 
 		#writes local object-group output
+		print("Creating local group...")
+		print("object-group network", localGroupName, file=open("../output/ipsec.txt","a"))
 		for i in range(len(localAddr)):
-			print("network-object object", localAddr[i][1], file=open("../output/pyObject.txt","a"))
+			print("network-object object", localAddr[i][1], file=open("../output/ipsec.txt","a"))
 		
 		#writes remote object-group output
+		print("Creating remote group...")
+		print("object-group network", remoteGroupName, file=open("../output/ipsec.txt","a"))
 		for i in range(len(remoteAddr)):
-			print("network-object object", remoteAddr[i][1], file=open("../output/pyObject.txt","a"))
-
-		#sends back to master
-		return localGroupName
-		return remoteGroupName
+			print("network-object object", remoteAddr[i][1], file=open("../output/ipsec.txt","a"))
 
 	#creates regular object-group
 	elif tunnelQuery == "n":
@@ -41,11 +41,11 @@ def CiscoGroup():
 			readerAddr = list(readerAddr)
 
 		groupName = input("Please enter a name for the object group: ")
-		
+		print("object-group network", groupName, file=open("../output/ipsec.txt","a"))
 		for i in range(len(readerAddr)):
-			print("network-object object", readerAddr[i][1], file=open("../output/pyObject.txt","a"))
+			print("network-object object", readerAddr[i][1], file=open("../output/ipsec.txt","a"))
 		
-		return groupName
+		
 	else:
 		print ("Invalid input; exiting...")
 		sys.exit()
