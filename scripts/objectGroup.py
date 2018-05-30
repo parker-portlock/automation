@@ -27,12 +27,15 @@ def CiscoGroup():
 		print("object-group network", localGroupName, file=open("../output/ipsec.txt","a"))
 		for i in range(len(localAddr)):
 			print("network-object object", localAddr[i][1], file=open("../output/ipsec.txt","a"))
+		print("exit", file=open("../output/ipsec.txt","a"))
 		
 		#writes remote object-group output
 		print("Creating remote group...")
 		print("object-group network", remoteGroupName, file=open("../output/ipsec.txt","a"))
 		for i in range(len(remoteAddr)):
 			print("network-object object", remoteAddr[i][1], file=open("../output/ipsec.txt","a"))
+
+		print("exit", file=open("../output/ipsec.txt","a"))
 
 	#creates regular object-group
 	elif tunnelQuery == "n":
