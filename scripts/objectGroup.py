@@ -1,5 +1,4 @@
 import sys
-import numpy
 import csv
 
 #object group function

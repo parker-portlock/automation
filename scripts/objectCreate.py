@@ -1,6 +1,6 @@
 import csv
 import sys
-import numpy
+
 
 def CiscoObject():
 	#opens output file
