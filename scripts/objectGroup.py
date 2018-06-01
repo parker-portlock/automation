@@ -21,6 +21,9 @@ def CiscoGroup():
 		localGroupName = input("Please enter the name for the local network group: ")
 		remoteGroupName = input("Please enter the name for the remote network group: ")
 
+		return localGroupName, remoteGroupName
+
+
 
 		#writes local object-group output
 		print("Creating local group...")
@@ -34,7 +37,6 @@ def CiscoGroup():
 		print("object-group network", remoteGroupName, file=open("../output/ipsec.txt","a"))
 		for i in range(len(remoteAddr)):
 			print("network-object object", remoteAddr[i][1], file=open("../output/ipsec.txt","a"))
-
 		print("exit", file=open("../output/ipsec.txt","a"))
 
 	#creates regular object-group
