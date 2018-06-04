@@ -13,13 +13,13 @@ with open('../files/encGroups.csv', 'rt') as csvGroupName:
 	groupNames = list(groupNames)
 cmapACL = input("Please name your crypto map ACL: ")
 for i in range(len(groupNames)):
-	print ("access-list", cmapACL, "permit ip object-group", groupNames[i][0], "object-group", groupNames[i][1], file=open("../output/ipsec.txt","a"))
+	print ("access-list", cmapACL, "extended permit ip object-group", groupNames[i][0], "object-group", groupNames[i][1], file=open("../output/ipsec.txt","a"))
 
 
 
 print ("Creating VPN filter ACL...")
 filterACL = input("Please name your VPN filter ACL: ")
-print("access-list", filterACL, "deny any any", file=open("../output/ipsec.txt","a"))
+print("access-list", filterACL, "extended deny any any", file=open("../output/ipsec.txt","a"))
 
 print ("Creating group policy...")
 #group policy creation
