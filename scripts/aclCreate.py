@@ -10,10 +10,13 @@ def CiscoCryptoACL():
 	cmapACL = input("Please name your crypto map ACL: ")
 	print("Creating crytpo map ACL...")
 	for i in range(len(groupNames)):
-		print ("access-list", cmapACL, "permit ip object-group", groupNames[i][0], "object-group", groupNames[i][1], file=open("../output/ipsec.txt","a")
+		print ("access-list", cmapACL, "permit ip object-group", groupNames[i][0], "object-group", groupNames[i][1], file=open("../output/ipsec.txt","a"))
 			
-			
-def CiscoFilterACL():
+def CiscoFilterACL():		
 	filterACL = input("Please name your VPN filter ACL: ")
 	print("Creating VPN filter ACL...")
-	print ("access-list" filterACL, "deny any any", file=open("../output/ipsec.txt","a")
+	print("access-list", filterACL, "deny any any", file=open("../output/ipsec.txt","a"))
+
+	with open('../files/filterName.csv', 'w', newline='') as csvFilter:
+		filterWriter = csv.writer(csvFilter, delimiter = ',', quotechar = '|')
+		filterWriter.writerow([filterACL])
