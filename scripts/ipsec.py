@@ -6,8 +6,6 @@ import sys
 print ("Creating objects and groups...")
 objectCreate.CiscoObject()
 objectGroup.CiscoGroup()
-groupData = objectGroup.CiscoGroup()
-print (groupData_localGroupName)
 
 #print ("Creating crypto-map ACL...")
 #

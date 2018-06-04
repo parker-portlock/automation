@@ -20,9 +20,9 @@ def CiscoGroup():
 		localGroupName = input("Please enter the name for the local network group: ")
 		remoteGroupName = input("Please enter the name for the remote network group: ")
 
-		return localGroupName, remoteGroupName
-
-
+		with open('../files/encGroups.csv', 'w', newline='') as csvEncGroup:
+			groupWriter = csv.writer(csvEncGroup, delimiter = ',', quotechar = '|')
+			groupWriter.writerow([localGroupName,remoteGroupName])
 
 		#writes local object-group output
 		print("Creating local group...")
