@@ -24,16 +24,11 @@ print("access-list", filterACL, "deny any any", file=open("../output/ipsec.txt",
 print ("Creating group policy...")
 #group policy creation
 policyName = input("Please name your group policy: ")
-with open('../files/filterName.csv', 'rt') as csvFilter:
-    filterName = csv.reader(csvFilter, delimiter=',', quotechar='|')
-    filterName = list(filterName)
-
 addFilter = input("Apply the filter you created to the policy? (y/n) ")
 if addFilter == "y":
-
     print("group-policy", policyName, "internal", file=open("../output/ipsec.txt","a"))
     print("group-policy", policyName, "attributes", file=open("../output/ipsec.txt","a"))
-    print("vpn-filter value", filterName[0], file=open("../output/ipsec.txt","a"))
+    print("vpn-filter value", filterACL, file=open("../output/ipsec.txt","a"))
 
     ikeVer = input("What IKE version are we using? (1/2) ")
     if ikeVer == "1":
@@ -84,20 +79,20 @@ cmapIndex = input("Please enter the crypto map index number: ")
 outsideMapName = input("Please enter your outside-map name: ")
 transformSet = input("Please enter the appropriate transform-set: ")
 phase1Mode = input("Please enter your Phase 1 mode: ")
-print("crypto map", outsideMapName, cmapIndex, "match address", cmapACL)
-print("crypto map", outsideMapName, cmapIndex, "ikev1 transform-set", transformSet)
-print("crypto map", outsideMapName, cmapIndex, "ikev1 phase1-mode", phase1Mode)
+print("crypto map", outsideMapName, cmapIndex, "match address", cmapACL, file=open("../output/ipsec.txt","a"))
+print("crypto map", outsideMapName, cmapIndex, "ikev1 transform-set", transformSet, file=open("../output/ipsec.txt","a"))
+print("crypto map", outsideMapName, cmapIndex, "ikev1 phase1-mode", phase1Mode, file=open("../output/ipsec.txt","a"))
 pfs = input("Do you want to enable PFS? (y/n)")
 if pfs == "y":
     dhGroup = input("What DH group should be set? ")
-    print("crypto map", outsideMapName, cmapIndex, "set pfs", dhGroup)
+    print("crypto map", outsideMapName, cmapIndex, "set pfs", dhGroup, file=open("../output/ipsec.txt","a"))
 else:
     print("Setting defaults...")
-    print("crypto map", outsideMapName, cmapIndex, "set pfs")
+    print("crypto map", outsideMapName, cmapIndex, "set pfs", file=open("../output/ipsec.txt","a"))
 if secondQuery == "y":
-    print("crypto map", outsideMapName, cmapIndex, "set peer", peerIP, secondaryIP)
+    print("crypto map", outsideMapName, cmapIndex, "set peer", peerIP, secondaryIP, file=open("../output/ipsec.txt","a"))
 else:
-    print("crypto map", outsideMapName, cmapIndex, "set peer", peerIP)
+    print("crypto map", outsideMapName, cmapIndex, "set peer", peerIP, file=open("../output/ipsec.txt","a"))
     
 
 #print ("Your IPSec tunnel configuration is complete. Use the output located in /output/ipsec.txt.")
