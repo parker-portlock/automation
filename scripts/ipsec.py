@@ -52,6 +52,11 @@ else:
 print ("Creating tunnel-group configuration...")
 #tunnel-group config
 peerIP = input("Please enter the remote peer IP: ")
+print("tunnel-group", peerIP, "type ipsec-l2l", file=open("../output/ipsec.txt","a"))
+print("tunnel-group", peerIP, "general-attributes", file=open("../output/ipsec.txt","a"))
+print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
+print("tunnel-group", peerIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
+
 secondQuery = input("Do you have a secondary remote peer? (y/n)")
 if secondQuery == "y":
     secondaryIP = input("Pleace enter the secondary remote peer IP: ")
@@ -59,29 +64,19 @@ if secondQuery == "y":
     print("tunnel-group", secondaryIP, "general-attributes", file=open("../output/ipsec.txt","a"))
     print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
     print("tunnel-group", secondaryIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
-
-    print("tunnel-group", peerIP, "type ipsec-l2l", file=open("../output/ipsec.txt","a"))
-    print("tunnel-group", peerIP, "general-attributes", file=open("../output/ipsec.txt","a"))
-    print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
-    print("tunnel-group", peerIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
-
 else:
     "No secondary. Continuing..."
-    print("tunnel-group", peerIP, "type ipsec-l2l", file=open("../output/ipsec.txt","a"))
-    print("tunnel-group", peerIP, "general-attributes", file=open("../output/ipsec.txt","a"))
-    print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
-    print("tunnel-group", peerIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
     
-    if ikeVer == "1":
-        psk = input("Please enter your PSK: ")
-        print("ikev1 pre-shared-key", psk, file=open("../output/ipsec.txt","a"))
-    elif ikeVer =="2":
-        remotePSK = input("Please enter your remote PSK: ")
-        localPSK = input("Please enter your local PSK: ")
-        print("ikev2 remote-authentication pre-shared-key", remotePSK, file=open("../output/ipsec.txt","a"))
-        print("ikev2 local-authentication pre-shared-key", localPSK, file=open("../output/ipsec.txt","a"))
-    else:
-        print("go kick rocks")
+if ikeVer == "1":
+    psk = input("Please enter your PSK: ")
+    print("ikev1 pre-shared-key", psk, file=open("../output/ipsec.txt","a"))
+elif ikeVer =="2":
+    remotePSK = input("Please enter your remote PSK: ")
+    localPSK = input("Please enter your local PSK: ")
+    print("ikev2 remote-authentication pre-shared-key", remotePSK, file=open("../output/ipsec.txt","a"))
+    print("ikev2 local-authentication pre-shared-key", localPSK, file=open("../output/ipsec.txt","a"))
+else:
+    print("go kick rocks")
 
 print ("Configuring crypto map...")
 #Crypto Map configuration
