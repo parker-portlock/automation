@@ -4,7 +4,7 @@ import sys
 import csv
 
 print ("Creating objects and groups...")
-objectCreate.CiscoObject()
+objectCreate.CiscoTunObject()
 objectGroup.CiscoGroup()
 
 print ("Creating crypto-map ACL...")
@@ -78,14 +78,16 @@ print ("Configuring crypto map...")
 cmapIndex = input("Please enter the crypto map index number: ")
 outsideMapName = input("Please enter your outside-map name: ")
 transformSet = input("Please enter the appropriate transform-set: ")
-phase1Mode = input("Please enter your Phase 1 mode: ")
+if ikeVer == "1":
+    phase1Mode = input("Please enter your Phase 1 mode: ")
+    print("crypto map", outsideMapName, cmapIndex, "ikev1 phase1-mode", phase1Mode, file=open("../output/ipsec.txt","a"))
+
 print("crypto map", outsideMapName, cmapIndex, "match address", cmapACL, file=open("../output/ipsec.txt","a"))
 print("crypto map", outsideMapName, cmapIndex, "ikev1 transform-set", transformSet, file=open("../output/ipsec.txt","a"))
-print("crypto map", outsideMapName, cmapIndex, "ikev1 phase1-mode", phase1Mode, file=open("../output/ipsec.txt","a"))
 pfs = input("Do you want to enable PFS? (y/n)")
 if pfs == "y":
     dhGroup = input("What DH group should be set? ")
-    print("crypto map", outsideMapName, cmapIndex, "set pfs", dhGroup, file=open("../output/ipsec.txt","a"))
+    print("crypto map ", outsideMapName," ",cmapIndex, " set pfs ", dhGroup, sep="", file=open("../output/ipsec.txt","a"))
 else:
     print("Setting defaults...")
     print("crypto map", outsideMapName, cmapIndex, "set pfs", file=open("../output/ipsec.txt","a"))
