@@ -1,0 +1,13 @@
+{
+    "fields": {
+       "project":
+       { 
+          "key": "HOST"
+       },
+       "summary": "pportlock - This is a test.",
+       "description": "blah blah blah",
+       "issuetype": {
+          "name": "Request"
+       }
+   }
+}
