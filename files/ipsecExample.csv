@@ -1,1 +1,1 @@
-customerName,nameAbbrev,ikeVer,peerIP,secondaryPeer,p2Proposal,P2lifetime,pfsEnabled,dhgroup,ikeNegMode,cmapIndex,outsidemap
+customerName,nameAbbrev,ikeVer,peerIP,secondaryPeer,p2Proposal,P2lifetime,pfsEnabled,dhgroup,ikeNegMode,cmapIndex,outsidemap,p2lifetime

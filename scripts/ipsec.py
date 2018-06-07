@@ -60,13 +60,10 @@ else:
     "No secondary. Continuing..."
   
 if ikeVer == "1":
-    psk = input("Please enter your PSK: ")
-    print("ikev1 pre-shared-key", psk, file=open("../output/ipsec.txt","a"))
+    print("ikev1 pre-shared-key", "<ENTER PSK HERE>", file=open("../output/ipsec.txt","a"))
 elif ikeVer =="2":
-    remotePSK = input("Please enter your remote PSK: ")
-    localPSK = input("Please enter your local PSK: ")
-    print("ikev2 remote-authentication pre-shared-key", remotePSK, file=open("../output/ipsec.txt","a"))
-    print("ikev2 local-authentication pre-shared-key", localPSK, file=open("../output/ipsec.txt","a"))
+    print("ikev2 remote-authentication pre-shared-key", "<REMOTE PSK>", file=open("../output/ipsec.txt","a"))
+    print("ikev2 local-authentication pre-shared-key", "<LOCALPSK>", file=open("../output/ipsec.txt","a"))
 else:
     print("GO KICK ROCKS")
 
@@ -75,12 +72,21 @@ print ("Configuring crypto map...")
 cmapIndex = vpnForm[1][10]
 outsideMapName = vpnForm[1][11]
 p2Prop = vpnForm[1][5]
+p2Life = vpnForm[1][12]
 if ikeVer == "1":
     ikeNegMode = vpnForm[1][9]
-    print("crypto map", outsideMapName, cmapIndex, "ikev1 phase1-mode", ikeNegMode, file=open("../output/ipsec.txt","a"))
+    print("crypto map", outsideMapName, cmapIndex, "set ikev1 phase1-mode", ikeNegMode, file=open("../output/ipsec.txt","a"))
+    print("crypto map", outsideMapName, cmapIndex, "set ikev1 transform-set", p2Prop, file=open("../output/ipsec.txt","a"))
+elif ikeVer =="2":
+    print("crypto map", outsideMapName, cmapIndex, "set ikev2 ipsec-proposal", p2Prop, file=open("../output/ipsec.txt","a"))
+else:
+    print("Invalid IKE version. Exiting...")
+    sys.exit()
+
 
 print("crypto map", outsideMapName, cmapIndex, "match address", cmapACL, file=open("../output/ipsec.txt","a"))
-print("crypto map", outsideMapName, cmapIndex, "ikev1 transform-set", p2Prop, file=open("../output/ipsec.txt","a"))
+print("crypto map", outsideMapName, cmapIndex, "set security-association lifetime seconds", p2Life, file=open("../output/ipsec.txt","a"))
+
 pfs = vpnForm[1][7]
 if pfs == "y":
     dhGroup = vpnForm[1][8]
