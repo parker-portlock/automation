@@ -23,7 +23,7 @@ for i in range(len(groupNames)):
 #vpn filter ACL creation
 print ("Creating VPN filter ACL...")
 filterACL ='VPN_'+ vpnForm[1][1] + '_FLTR'
-print("access-list", filterACL, "extended deny any any", file=open("../output/ipsec.txt","a"))
+print("access-list", filterACL, "extended deny ip any any", file=open("../output/ipsec.txt","a"))
 
 #group policy creation
 print ("Creating group policy...")
@@ -41,7 +41,10 @@ elif ikeVer =="2":
 else:
     print("Invalid input")
     sys.exit()
-    
+
+print("exit", file=open("../output/ipsec.txt","a"))
+
+
 #tunnel-group config
 print ("Creating tunnel-group configuration...")
 peerIP = vpnForm[1][3]
@@ -49,6 +52,7 @@ print("tunnel-group", peerIP, "type ipsec-l2l", file=open("../output/ipsec.txt",
 print("tunnel-group", peerIP, "general-attributes", file=open("../output/ipsec.txt","a"))
 print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
 print("tunnel-group", peerIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
+print("exit", file=open("../output/ipsec.txt","a"))
 
 secondaryIP = vpnForm[1][4]
 if secondaryIP != "":
@@ -56,6 +60,7 @@ if secondaryIP != "":
     print("tunnel-group", secondaryIP, "general-attributes", file=open("../output/ipsec.txt","a"))
     print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
     print("tunnel-group", secondaryIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
+    print("exit", file=open("../output/ipsec.txt","a"))
 else:
     "No secondary. Continuing..."
   
@@ -72,7 +77,7 @@ print ("Configuring crypto map...")
 cmapIndex = vpnForm[1][10]
 outsideMapName = vpnForm[1][11]
 p2Prop = vpnForm[1][5]
-p2Life = vpnForm[1][12]
+p2Life = vpnForm[1][6]
 if ikeVer == "1":
     ikeNegMode = vpnForm[1][9]
     print("crypto map", outsideMapName, cmapIndex, "set ikev1 phase1-mode", ikeNegMode, file=open("../output/ipsec.txt","a"))
@@ -99,4 +104,4 @@ else:
     print("crypto map", outsideMapName, cmapIndex, "set peer", peerIP, file=open("../output/ipsec.txt","a"))
     
 
-#print ("Your IPSec tunnel configuration is complete. Use the output located in /output/ipsec.txt.")
+print ("Your IPSec tunnel configuration is complete. Use the output located in /output/ipsec.txt.")
