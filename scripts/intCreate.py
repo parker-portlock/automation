@@ -22,7 +22,10 @@ if csvLoad == 'y':
 
     else:
         print('interface te0/8.', vlanNum, sep="", file=open("../output/interface.txt","a"))
-        print('vlan ',vlanNum)
-        print('nameif ', prodName,'_',func,'_',intType)
-        print('security-level ',secLev)
+        print('vlan ',vlanNum, sep="", file=open("../output/interface.txt","a"))
+        print('nameif ', prodName,'_',func,'_',intType, sep="", file=open("../output/interface.txt","a"))
+        print('security-level ',secLev, sep="", file=open("../output/interface.txt","a"))
         print('ip address ')
+
+        print('object network ON_',prodName,'_',intType, sep="", file=open("../output/interface.txt","a"))
+        print('subnet',netAddr, netMask, file=open("../output/interface.txt","a"))
