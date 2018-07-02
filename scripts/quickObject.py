@@ -2,7 +2,7 @@ import sys
 import csv
 import objectGroup
 
-loadFile = input ("Did you load the  in /files? (y/n) ")
+loadFile = input ("Did you load the objects into the addr.csv in /files? (y/n) ")
 
 if loadFile == "y":
 	with open('../files/addr.csv', 'rt') as csvObj:
@@ -24,4 +24,5 @@ if groupQ == 'y':
 		print("network-object object", address[i][1], file=open("../output/Objects.txt","a"))
 	print("exit", file=open("../output/Objects.txt","a"))
 else:
+	print("Exiting...")
 	sys.exit()
