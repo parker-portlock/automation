@@ -1,3 +1,20 @@
+    #ipsec.py -> Quickly create Cisco ikev1 and ikev2 tunnels
+    #Copyright (C) 2018 Parker M. Portlock
+
+    #This program is free software: you can redistribute it and/or modify
+    #it under the terms of the GNU General Public License as published by
+    #the Free Software Foundation, either version 3 of the License, or
+    #(at your option) any later version.
+
+    #This program is distributed in the hope that it will be useful,
+    #but WITHOUT ANY WARRANTY; without even the implied warranty of
+    #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    #GNU General Public License for more details.
+
+    #You should have received a copy of the GNU General Public License
+    #along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 import csv
 import sys
 
@@ -35,4 +52,3 @@ def CiscoTunObject():
 				elif netType != '':
 					print("object", objectType, remoteAddr[i][1], "\n", "subnet", remoteAddr[i][0], remoteAddr[i][2], file=open("../output/ipsec.txt", "a"))
 				
-		

@@ -1,4 +1,4 @@
-    #quickObject.py -> Quickly create Cisco network objects for the ASA platform
+    #quickObject.py -> Quickly create Cisco network objects for the ASA platform (specialized for tunnels)
     #Copyright (C) 2018 Parker M. Portlock
 
     #This program is free software: you can redistribute it and/or modify
