@@ -16,6 +16,7 @@ if loadFile == "y":
 	    elif netType !='':
 	        print("object netowrk", address[i][1], "\n", "subnet", address[i][0], address[i][2], file=open("../output/Objects.txt", "a"))
 
+
 groupQ = input("Do you want these in a group? (y/n)")
 if groupQ == 'y':
 	groupName = input("What's the name for the object group? ")
@@ -23,6 +24,8 @@ if groupQ == 'y':
 	for i in range(len(address)):
 		print("network-object object", address[i][1], file=open("../output/Objects.txt","a"))
 	print("exit", file=open("../output/Objects.txt","a"))
+	print ("Output is in /output/Objects.txt")
 else:
+	print ("Output is in /output/Objects.txt")
 	print("Exiting...")
 	sys.exit()
