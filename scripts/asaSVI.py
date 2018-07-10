@@ -8,54 +8,57 @@ if loadFile == "y":
     with open('../files/interface.csv', 'rt') as csvInt:
     	interface = csv.reader(csvInt, delimiter=',', quotechar='|')
     	interface = list(interface)
-    intType = interface[1][0]
-    intFunc = interface[1][1]
-    netAddr = interface[1][2]
-    netMask = interface[1][3]
-    product = interface[1][4]
-
-    netTup = netAddr.split(".")
-    vlanNum = netTup[2]
-
-    if intType == "internal":
-        intFace = 8
-        secLev = 80
-    elif intType == "dmz":
-        intFace = 9
-        secLev = 25
-    else:
-        print ("Invalid Interface type. Exiting..")
-        sys.exit()
     
-
-    print ("interface te0/",intFace,".",vlanNum,sep="", file=open("../output/Interface.txt","a"))
-    print ("vlan", vlanNum, file=open("../output/Interface.txt","a"))
-    print ("nameif", product+"_"+intFunc+"_"+intType, file=open("../output/Interface.txt","a"))
-    print ("security-level", secLev, file=open("../output/Interface.txt","a"))
-    print ("ip address ",netTup[0],".",netTup[1],".",netTup[2],".1 ",netMask," standby ",netTup[0],".",netTup[1],".",netTup[2],".2 ",sep="", file=open("../output/Interface.txt","a"))
-
     
-    objName = "ON_"+product+"_"+intFunc+"_"+intType
-    print("object network", objName, file=open("../output/Interface.txt","a"))
+    for i in range(len(interface)-1):
+        intType = interface[i+1][0]
+        intFunc = interface[i+1][1]
+        netAddr = interface[i+1][2]
+        netMask = interface[i+1][3]
+        product = interface[i+1][4]
 
-    aclName = product+"_"+intFunc+"_"+intType+"_access_in"
+        netTup = netAddr.split(".")
+        vlanNum = netTup[2]
 
-    print ("access-list", aclName, "extended permit object-group active_directory object",objName,"object-group active_directory_servers", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "extended permit object-group active_directory object",objName,"object-group active_directory_servers", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "extended permit object-group kms object",objName," object-group kms_servers", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "extended permit ip any object lbdmz_network", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "extended permit tcp object",objName,"object-group shared_email_servers eq smtp", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "extended permit tcp object",objName,"object-group shared_web_servers eq www", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "extended permit tcp object",objName,"object-group shared_web_servers eq https", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "remark Allow Access to Remote VPN Networks", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "extended permit ip object",objName,"object-group remote_vpn_networks", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "remark Block other private networks", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "extended deny ip object",objName,"object-group rfc1918", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "remark Allow access to all public networks", file=open("../output/Interface.txt","a"))
-    print ("access-list", aclName, "extended permit ip object",objName,"any", file=open("../output/Interface.txt","a"))
+        if intType == "internal":
+            intFace = 8
+            secLev = 80
+        elif intType == "dmz":
+            intFace = 9
+            secLev = 25
+        else:
+            print ("Invalid Interface type. Exiting..")
+            sys.exit()
 
-    #print (netTup[0],netTup[1],netTup[2],netTup[3])
-    print ("Done! You can find your script in /output/Interface.txt.")
+
+        print ("interface te0/",intFace,".",vlanNum,sep="", file=open("../output/Interface.txt","a"))
+        print ("vlan", vlanNum, file=open("../output/Interface.txt","a"))
+        print ("nameif", product+"_"+intFunc+"_"+intType, file=open("../output/Interface.txt","a"))
+        print ("security-level", secLev, file=open("../output/Interface.txt","a"))
+        print ("ip address ",netTup[0],".",netTup[1],".",netTup[2],".1 ",netMask," standby ",netTup[0],".",netTup[1],".",netTup[2],".2 ",sep="", file=open("../output/Interface.txt","a"))
+
+
+        objName = "ON_"+product+"_"+intFunc+"_"+intType
+        print("object network", objName, file=open("../output/Interface.txt","a"))
+
+        aclName = product+"_"+intFunc+"_"+intType+"_access_in"
+
+        print ("access-list", aclName, "extended permit object-group active_directory object",objName,"object-group active_directory_servers", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "extended permit object-group active_directory object",objName,"object-group active_directory_servers", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "extended permit object-group kms object",objName," object-group kms_servers", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "extended permit ip any object lbdmz_network", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "extended permit tcp object",objName,"object-group shared_email_servers eq smtp", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "extended permit tcp object",objName,"object-group shared_web_servers eq www", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "extended permit tcp object",objName,"object-group shared_web_servers eq https", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "remark Allow Access to Remote VPN Networks", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "extended permit ip object",objName,"object-group remote_vpn_networks", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "remark Block other private networks", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "extended deny ip object",objName,"object-group rfc1918", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "remark Allow access to all public networks", file=open("../output/Interface.txt","a"))
+        print ("access-list", aclName, "extended permit ip object",objName,"any", file=open("../output/Interface.txt","a"))
+
+        #print (netTup[0],netTup[1],netTup[2],netTup[3])
+        print ("Done! You can find your script in /output/Interface.txt.")
 
 else:
     print ("No File found. Exiting...")
