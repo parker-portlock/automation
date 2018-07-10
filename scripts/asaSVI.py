@@ -55,6 +55,7 @@ if loadFile == "y":
 
         objName = "ON_"+product+"_"+intFunc+"_"+intType
         print("object network", objName, file=open("../output/Interface.txt","a"))
+        print("subnet", netAddr, netMask,file=open("../output/Interface.txt","a"))
 
         aclName = product+"_"+intFunc+"_"+intType+"_access_in"
 
