@@ -74,7 +74,7 @@ if loadFile == "y":
         print ("access-list", aclName, "extended permit ip object",objName,"any", file=open("../output/Interface.txt","a"))
 
         #print (netTup[0],netTup[1],netTup[2],netTup[3])
-        print ("Done! You can find your script in /output/Interface.txt.")
+    print ("Done! You can find your script in /output/Interface.txt.")
 
 else:
     print ("No File found. Exiting...")
