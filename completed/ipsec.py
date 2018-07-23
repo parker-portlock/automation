@@ -17,8 +17,14 @@
 
 import objectCreate
 import objectGroup
-import sys
+import paramiko
+import getpass
+import time 
+import os 
+import sys 
 import csv
+
+print ('conf t', file=open("../output/ipsec.txt","a"))
 
 with open('../files/ipsecForm.csv','rt') as ipsecForm:
     vpnForm = csv.reader(ipsecForm, delimiter = ',', quotechar = '|')
@@ -120,5 +126,31 @@ if secondaryIP == "y":
 else:
     print("crypto map", outsideMapName, cmapIndex, "set peer", peerIP, file=open("../output/ipsec.txt","a"))
     
+print ('end', file=open("../output/ipsec.txt","a"))
+print ('wr mem', file=open("../output/ipsec.txt","a"))
 
-print ("Your IPSec tunnel configuration is complete. Use the output located in /output/ipsec.txt.")
+#READ OUTPUT FILE
+with open('../output/ipsec.txt', 'r') as myfile:
+     ipsec=myfile.read()
+
+#SSH LOGIN
+ip = input("Enter target ASA IP: ")
+username = input("Username: ")
+password =  getpass.getpass("Password: ")
+remote_pre=paramiko.SSHClient()
+remote_pre.load_system_host_keys()
+remote_pre.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+remote_pre.connect(ip, username=username, password=password, look_for_keys=False, allow_agent=False)
+remote=remote_pre.invoke_shell()
+time.sleep(2)
+output=remote.recv(65535)
+print (output) 
+remote.send(ipsec)
+time.sleep(2)
+output=remote.recv(65535)
+print(output)
+
+print ("Performing cleanup...")
+os.remove('../output/ipsec.txt')
+
+print ("Your IPSec tunnel configuration is complete.")
