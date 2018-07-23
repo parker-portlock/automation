@@ -75,7 +75,7 @@ print("tunnel-group", peerIP, "type ipsec-l2l", file=open("../output/ipsec.txt",
 print("tunnel-group", peerIP, "general-attributes", file=open("../output/ipsec.txt","a"))
 print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
 print("tunnel-group", peerIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
-print("exit", file=open("../output/ipsec.txt","a"))
+
 
 secondaryIP = vpnForm[1][4]
 if secondaryIP != "":
@@ -90,11 +90,12 @@ else:
 if ikeVer == "1":
     print("ikev1 pre-shared-key", "<ENTER PSK HERE>", file=open("../output/ipsec.txt","a"))
 elif ikeVer =="2":
-    print("ikev2 remote-authentication pre-shared-key", "<REMOTE PSK>", file=open("../output/ipsec.txt","a"))
+    print("ikev2 remote-authentication pre-shared-key", "<REMOTEPSK>", file=open("../output/ipsec.txt","a"))
     print("ikev2 local-authentication pre-shared-key", "<LOCALPSK>", file=open("../output/ipsec.txt","a"))
 else:
     print("GO KICK ROCKS")
 
+print("exit", file=open("../output/ipsec.txt","a"))
 print ("Configuring crypto map...")
 #Crypto Map configuration
 cmapIndex = vpnForm[1][10]
