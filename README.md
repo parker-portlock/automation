@@ -1,17 +1,16 @@
 # Automation Stuff
 
-Here, you will find my playground with different network-related automation scripts to make my life easier. Nothing here is actually worthy of production use, so tread *carefully*.
+Here, you will find my playground with different network-related automation scripts to make my life easier. Most of the items in this repo are not worthy of production use, so tread *carefully*.
 
 ## Current Projects
 
+Please note that all working scripts are in the `/completed` folder.
+
 ### Cisco IPSec tunnel Creation
 
-Run the `ipsec.py` program to create an IPSec tunnel used on Cisco ASA devices.
+Run the `ipsec.py` program to create an IPSec tunnel used on Cisco ASA devices. The "ipsecExample.CSV" will allow you to enter the informaiton into a form.
 
-#### Shit that don' work
+### Quick object creation for ASA
 
-IKEv2 functionallity mostly built
+Run the `quickObject.py` program to create network-objects from a CSV.
 
-IKEv1 functionality should work
-
-Error handling is sketchy
