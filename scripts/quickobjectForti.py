@@ -41,7 +41,7 @@ if groupQ == 'y':
 	hostnames = data.hostname.tolist()
 
 	print ("config firewall addrgrp","\n", "edit", groupName, file=open("../output/pyFortiObject.txt","a"))	
-	print ("set member", " ".join(hostnames), file=open("../output/pyFortiObject.txt", "a"))
+	print ("set member", " ".join('"' + hostnames + '"' for hostnames in hostnames), file=open("../output/pyFortiObject.txt", "a"))
 	print ("Output is in /output/Objects.txt")
 else:
 	print ("Output is in /output/Objects.txt")
