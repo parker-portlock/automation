@@ -89,13 +89,15 @@ else:
   
 if ikeVer == "1":
     print("ikev1 pre-shared-key", "<ENTER PSK HERE>", file=open("../output/ipsec.txt","a"))
+    print("exit", file=open("../output/ipsec.txt","a"))
 elif ikeVer =="2":
-    print("ikev2 remote-authentication pre-shared-key", "<REMOTEPSK>", file=open("../output/ipsec.txt","a"))
-    print("ikev2 local-authentication pre-shared-key", "<LOCALPSK>", file=open("../output/ipsec.txt","a"))
+    print("ikev2 remote-authentication pre-shared-key", "REMOTEPSK", file=open("../output/ipsec.txt","a"))
+    print("ikev2 local-authentication pre-shared-key", "LOCALPSK", file=open("../output/ipsec.txt","a"))
+    print("exit", file=open("../output/ipsec.txt","a"))
 else:
     print("GO KICK ROCKS")
 
-print("exit", file=open("../output/ipsec.txt","a"))
+
 print ("Configuring crypto map...")
 #Crypto Map configuration
 cmapIndex = vpnForm[1][10]
@@ -148,7 +150,7 @@ output=remote.recv(65535)
 print (output) 
 remote.send(ipsec)
 time.sleep(2)
-output=remote.recv(65535)
+output=remote.recv(100000)
 print(output)
 
 print ("Performing cleanup...")

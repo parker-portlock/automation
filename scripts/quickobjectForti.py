@@ -17,8 +17,9 @@
 
 
 import sys
+import pandas
 import csv
-import objectGroup
+#import objectGroup
 
 loadFile = input ("Did you load the objects into the addr.csv in /files? (y/n) ")
 
@@ -28,22 +29,21 @@ if loadFile == "y":
 		address = list(address)
 
 	for i in range(len(address)):
-	    netType = address[i][2]
-	    if netType =='':
-	    	print("object network", address[i][1], "\n", "host", address[i][0], file=open("../output/Objects.txt", "a"))
-	    elif netType !='':
-	        print("object netowrk", address[i][1], "\n", "subnet", address[i][0], address[i][2], file=open("../output/Objects.txt", "a"))
+	    print ("edit", address[i][1], "\n", "set subnet", address[i][0] , address[i][2], "\n", "next", file=open("../output/pyFortiObject.txt", "a"))
 
 
 groupQ = input("Do you want these in a group? (y/n)")
 if groupQ == 'y':
 	groupName = input("What's the name for the object group? ")
-	print("object-group network", groupName, file=open("../output/Objects.txt","a"))
-	for i in range(len(address)):
-		print("network-object object", address[i][1], file=open("../output/Objects.txt","a"))
-	print("exit", file=open("../output/Objects.txt","a"))
+
+	colnames = ['ipaddr', 'hostname', 'subnetmask']
+	data = pandas.read_csv('../files/addr.csv', names=colnames)
+	hostnames = data.hostname.tolist()
+
+	print ("config firewall addrgrp","\n", "edit", groupName, file=open("../output/pyFortiObject.txt","a"))	
+	print ("set member", " ".join(hostnames), file=open("../output/pyFortiObject.txt", "a"))
 	print ("Output is in /output/Objects.txt")
 else:
 	print ("Output is in /output/Objects.txt")
-	print("Exiting...")
+	print ("Exiting...")
 	sys.exit()
