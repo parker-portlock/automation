@@ -3,3 +3,6 @@
 *.json
 !ipsecExample.csv
 !addrExample.csv
+*.tfvars
+*.tfstate
+*.tfstate.backup
