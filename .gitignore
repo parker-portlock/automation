@@ -7,3 +7,5 @@
 *.tfstate
 *.tfstate.backup
 *.exe
+/Terraform/.terraform
+/scripts/__pycache__/
