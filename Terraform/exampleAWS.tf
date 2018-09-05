@@ -1,9 +1,11 @@
 variable "access_key" {}
 variable "secret_key" {}
+variable "region" {}
+
 variable "vpc_cidr" {}
 variable "name" {}
 variable "priv_subnets" {}
-variable "region" {
+variable "azns" {
     default ="us-west-2a"
 }
 
@@ -27,7 +29,7 @@ module "priv_subnet" {
   
   vpc_id = "${module.vpc.vpc_id}"
   subnet_block = "${var.priv_subnets}"
-  region = "${var.region}"
+  azns = "${var.azns}"
   
 }
 

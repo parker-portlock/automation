@@ -2,9 +2,8 @@ variable "vpc_id" {}
 
 variable "subnet_block" {}
 
-variable "region" {
-  
-}
+variable "azns" {}
+
 variable "name" {
   default ="private"
 }
@@ -14,7 +13,7 @@ variable "name" {
 resource "aws_subnet" "private" {
   vpc_id = "${var.vpc_id}"
   cidr_block = "${var.subnet_block}"
-  availability_zone = "${var.region}"
+  availability_zone = "${var.azns}"
 
 
   tags {
