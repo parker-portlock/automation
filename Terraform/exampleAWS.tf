@@ -1,9 +1,12 @@
-
 variable "access_key" {}
 variable "secret_key" {}
-variable "region"{
-  default ="us-west-2"
+variable "vpc_cidr" {}
+variable "name" {}
+variable "priv_subnets" {}
+variable "region" {
+    default ="us-west-2a"
 }
+
 
 provider "aws" {
   access_key = "${var.access_key}"
@@ -11,30 +14,22 @@ provider "aws" {
   region = "${var.region}"
 }
 
-variable "cidr_block"{}
-variable "vpc_id" {
+module "vpc" {
+  source = "./vpc"
+  
+  name = "${var.name}_vpc"
+  cidr = "${var.vpc_cidr}"
+}
+
+module "priv_subnet" {
+  source = "./priv_subnet"
+  name = "${var.name}_inside"
+  
+  vpc_id = "${module.vpc.vpc_id}"
+  subnet_block = "${var.priv_subnets}"
+  region = "${var.region}"
   
 }
-
-
-resource "aws_vpc" "vpc_test"{
-  id ="${var.vpc_id}"
-  cidr_block = "${var.cidr_block}"
-  default = true
-
-}
-
-variable "subnet_id"{}
-variable "subnet_block"{}
-resource "aws_subnet" "internal" {
-  vpc_id = "${var.vpc_id}"
-  cidr_block = "${var.subnet_block}"
-  id = "${var.subnet_id}"
-
-}
-
-
-
 
 
 
