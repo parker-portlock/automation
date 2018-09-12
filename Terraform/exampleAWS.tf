@@ -1,10 +1,10 @@
 variable "access_key" {}
 variable "secret_key" {}
 variable "region" {}
-
 variable "vpc_cidr" {}
 variable "name" {}
 variable "priv_subnets" {}
+variable "pub_subnets" {}
 variable "azns" {
     default ="us-west-2a"
 }
@@ -22,6 +22,24 @@ module "vpc" {
   name = "${var.name}_vpc"
   cidr = "${var.vpc_cidr}"
 }
+module "pub_subnet" {
+  source = "./pub_subnet"
+  name = "${var.name}_inside"
+  
+  vpc_id = "${module.vpc.vpc_id}"
+  subnet_block = "${var.pub_subnets}"
+  azns = "${var.azns}"
+  
+}
+module "nat_gw" {
+  source = "./nat_gw"
+
+  name = "${var.name}_nat"
+  azns = "${var.azns}"
+  public_subnet_ids = "${module.pub_subnet.subnet_ids}"
+}
+
+
 
 module "priv_subnet" {
   source = "./priv_subnet"
@@ -34,6 +52,14 @@ module "priv_subnet" {
 }
 
 
+module "acls" {
+  source = "./acls"
+  name = "${var.name}_acl"
+  
+  vpc_id = "${module.vpc.vpc_id}"
+  subnet_block = "${var.priv_subnets}"
+  
+  }
 
 
 
