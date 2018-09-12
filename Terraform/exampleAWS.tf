@@ -5,6 +5,9 @@ variable "vpc_cidr" {}
 variable "name" {}
 variable "priv_subnets" {}
 variable "pub_subnets" {}
+variable "enc_domain" {}
+variable "vpn_peer" {}
+
 variable "azns" {
     default ="us-west-2a"
 }
@@ -24,7 +27,7 @@ module "vpc" {
 }
 module "pub_subnet" {
   source = "./pub_subnet"
-  name = "${var.name}_inside"
+  name = "${var.name}_dmz"
   
   vpc_id = "${module.vpc.vpc_id}"
   subnet_block = "${var.pub_subnets}"
@@ -49,6 +52,21 @@ module "priv_subnet" {
   subnet_block = "${var.priv_subnets}"
   azns = "${var.azns}"
   
+}
+
+module "vpg" {
+  source = "./vpg"
+  name = "${var.name}_vpg"
+  vpc_id = "${module.vpc.vpc_id}"
+  
+}
+
+module "vpn" {
+  source = "./vpn"
+  name = "${var.name}_vpn"
+  vpg_id = "${module.vpg.vpg_id}"
+  dest_enc_domain = "${var.enc_domain}"
+  peerip ="${var.vpn_peer}"
 }
 
 
