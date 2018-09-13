@@ -1,14 +1,12 @@
 variable "vpc_id" {}
-
 variable "subnet_block" {}
-
 variable "azns" {}
-
 variable "name" {
   default ="public"
 }
-
-#variable "prop_vgw" {}
+variable "propagating_vgws" {
+    type = "list"
+}
 
 resource "aws_internet_gateway" "public" {
     vpc_id = "${var.vpc_id}"
@@ -32,7 +30,7 @@ resource "aws_subnet" "public" {
 
 resource "aws_route_table" "public" {
     vpc_id = "${var.vpc_id}"
-    #propagating_vgws = "${var.prop_vgw}"
+    propagating_vgws = ["${var.propagating_vgws}"]
 
 }
 
@@ -43,6 +41,10 @@ resource "aws_route" "default_route" {
   depends_on = ["aws_route_table.public"]
 }
 
+resource "aws_route_table_association" "public" {
+  subnet_id = "${aws_subnet.public.id}"
+  route_table_id = "${aws_route_table.public.id}"
+}
 
 output "subnet_ids" {
     value = "${aws_subnet.public.id}"
