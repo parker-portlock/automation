@@ -9,27 +9,27 @@ variable "enc_domain" {}
 variable "vpn_peer" {}
 variable "inst_ip" {}
 variable "public_key" {}
-
-
-
-
+#variable "ecdsa_key" {}
 variable "azns" {
     default ="us-west-2a"
 }
 
-
+#Provider Definition#
 provider "aws" {
   access_key = "${var.access_key}"
   secret_key = "${var.secret_key}"
   region = "${var.region}"
 }
 
+#VPC Creation#
 module "vpc" {
   source = "./vpc"
   
   name = "${var.name}_vpc"
   cidr = "${var.vpc_cidr}"
 }
+
+#Creates public subnet#
 module "pub_subnet" {
   source = "./pub_subnet"
   name = "${var.name}_dmz"
@@ -40,6 +40,8 @@ module "pub_subnet" {
   propagating_vgws = ["${module.vpg.vpg_id}"]
   
 }
+
+#Creates NAT Gateway#
 module "nat_gw" {
   source = "./nat_gw"
 
@@ -49,6 +51,7 @@ module "nat_gw" {
 
 }
 
+#Creates Private Subnet#
 module "priv_subnet" {
   source = "./priv_subnet"
   name = "${var.name}_inside"
@@ -61,6 +64,7 @@ module "priv_subnet" {
   
 }
 
+#Creates Virtual Private Gateway#
 module "vpg" {
   source = "./vpg"
   name = "${var.name}_vpg"
@@ -68,6 +72,7 @@ module "vpg" {
   
 }
 
+#Creates VPN Connection#
 module "vpn" {
   source = "./vpn"
   name = "${var.name}_vpn"
@@ -77,6 +82,7 @@ module "vpn" {
 }
 
 
+#Creates ACLs#
 resource "aws_network_acl" "public" {
     vpc_id = "${module.vpc.vpc_id}"
     subnet_ids = ["${var.pub_subnets}"]
@@ -131,22 +137,46 @@ resource "aws_network_acl" "private" {
     }
 }
 
+#Creates Service Group#
 module "sg" {
     source = "./sg"
     vpc_id = "${module.vpc.vpc_id}"
 }
 
-resource "aws_key_pair" "abm" {
-  key_name = "mykey"
+#Creates Key Pair for Instance#
+resource "aws_key_pair" "broly" {
+  key_name = "broly"
   public_key = "${var.public_key}"
 
 }
 
+#resource "aws_key_pair" "broly_ecdsa" {
+#  key_name = "broly"
+#  public_key = "${var.ecdsa_key}"
+#
+#}
 
+#Creates Test Instance#
 module "ec2" {
   source = "./ec2"
   private_ip = "${var.inst_ip}"
   subnet_id = "${module.priv_subnet.subnet_ids}"
   security_groups = ["${module.sg.sg_id}"]
-  key_name = "${aws_key_pair.abm.key_name}"
+  key_name = "${aws_key_pair.broly.key_name}"
+}
+
+
+
+
+output "vpn1_address" {
+  value = "${module.vpn.vpn1_addr}"
+}
+output "vpn1_psk" {
+  value = "${module.vpn.vpn1_psk}"
+}
+output "vpn2_address" {
+  value = "${module.vpn.vpn2_addr}"
+}
+output "vpn2_psk" {
+  value = "${module.vpn.vpn2_psk}"
 }

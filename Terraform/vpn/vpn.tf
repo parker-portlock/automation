@@ -18,6 +18,10 @@ resource "aws_vpn_connection" "vpn" {
   customer_gateway_id = "${aws_customer_gateway.cgw.id}"
   type = "ipsec.1"
   static_routes_only = true
+  
+  tags {
+    Name = "Test_VPN"
+  }
 }
 
 resource "aws_vpn_connection_route" "home" {
