@@ -41,15 +41,15 @@ def CiscoTunGroup():
 	#writes local object-group output
 	print("Creating local group...")
 	print("object-group network", localGroupName, file=open("../output/ipsec.txt","a"))
-	for i in range(len(localAddr)):
-		print("network-object object", localAddr[i][1], file=open("../output/ipsec.txt","a"))
+	for i in range(len(localAddr)-1):
+		print("network-object object", localAddr[i+1][1], file=open("../output/ipsec.txt","a"))
 	print("exit", file=open("../output/ipsec.txt","a"))
 	
 	#writes remote object-group output
 	print("Creating remote group...")
 	print("object-group network", remoteGroupName, file=open("../output/ipsec.txt","a"))
-	for i in range(len(remoteAddr)):
-		print("network-object object", remoteAddr[i][1], file=open("../output/ipsec.txt","a"))
+	for i in range(len(remoteAddr)-1):
+		print("network-object object", remoteAddr[i+1][1], file=open("../output/ipsec.txt","a"))
 	print("exit", file=open("../output/ipsec.txt","a"))
 
 def CiscoGroup():
@@ -59,6 +59,6 @@ def CiscoGroup():
     		address = list(address)
 
 	print("object-group network", groupName, file=open("../output/Objects.txt","a"))
-	for i in range(len(address)):
-		print("network-object object", address[i][1], file=open("../output/Objects.txt","a"))
+	for i in range(len(address)-1):
+		print("network-object object", address[i+1][1], file=open("../output/Objects.txt","a"))
 	print("exit", file=open("../output/Objects.txt","a"))
