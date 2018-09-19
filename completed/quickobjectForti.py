@@ -1,4 +1,4 @@
-    #quickObjectForti.py -> Quickly create Forti network objects for the ASA platform (specialized for tunnels)
+    #quickObjectForti.py -> Quickly create network objects for the FortiOS platform
     #Copyright (C) 2018 Parker M. Portlock
 
     #This program is free software: you can redistribute it and/or modify

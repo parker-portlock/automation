@@ -1,0 +1,20 @@
+---
+- hosts: cisco-asa
+  connection: local
+  vars_files:
+    - /path/to/vault/file.yml
+
+  tasks:
+  - name: show-ver-test
+    asa_command:
+      commands:
+        - show run | ex username
+      provider: "{{ cli }}"
+      timeout: 180
+    register: config
+
+  - name: save output to /backups
+    copy:
+      content: "{{ config.stdout[0] }}"
+      dest: "/path/to/output/folder/file.txt"
+      backup: yes

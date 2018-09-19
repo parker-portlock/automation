@@ -1,0 +1,19 @@
+---
+- hosts: cisco-nexus
+  connection: local
+  vars_files:
+    - /path/to/vault/file.yml
+
+  tasks:
+  - name: show running config
+    nxos_command:
+      commands:
+        - show run | ex username | ex !Time
+      provider: "{{ cli }}"
+    register: config
+
+  - name: save output to /backups
+    copy:
+      content: "{{ config.stdout[0] }}"
+      dest: "/path/to/output/folder/file.txt"
+      backup: yes
