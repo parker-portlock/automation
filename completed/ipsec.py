@@ -85,6 +85,7 @@ print("tunnel-group", peerIP, "type ipsec-l2l", file=open("../output/ipsec.txt",
 print("tunnel-group", peerIP, "general-attributes", file=open("../output/ipsec.txt","a"))
 print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
 print("tunnel-group", peerIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
+print("ikev1 pre-shared-key", "<ENTER_PSK_HERE>", file=open("../output/ipsec.txt","a"))
 
 
 secondaryIP = vpnForm[1][4]
@@ -99,7 +100,7 @@ else:
     "No secondary. Continuing..."
   
 if ikeVer == "1":
-    print("ikev1 pre-shared-key", "<ENTER PSK HERE>", file=open("../output/ipsec.txt","a"))
+    print("ikev1 pre-shared-key", "<ENTER_PSK_HERE>", file=open("../output/ipsec.txt","a"))
     print("exit", file=open("../output/ipsec.txt","a"))
 elif ikeVer =="2":
     print("ikev2 remote-authentication pre-shared-key", "<REMOTE PSK>", file=open("../output/ipsec.txt","a"))
