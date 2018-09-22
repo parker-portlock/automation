@@ -81,33 +81,41 @@ print("exit", file=open("../output/ipsec.txt","a"))
 secondaryConf = False
 print ("Creating tunnel-group configuration...")
 peerIP = vpnForm[1][3]
-print("tunnel-group", peerIP, "type ipsec-l2l", file=open("../output/ipsec.txt","a"))
-print("tunnel-group", peerIP, "general-attributes", file=open("../output/ipsec.txt","a"))
-print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
-print("tunnel-group", peerIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
-print("ikev1 pre-shared-key", "<ENTER_PSK_HERE>", file=open("../output/ipsec.txt","a"))
-
-
 secondaryIP = vpnForm[1][4]
+
 if secondaryIP != "":
     secondaryConf = True
+    #primary
+    print("tunnel-group", peerIP, "type ipsec-l2l", file=open("../output/ipsec.txt","a"))
+    print("tunnel-group", peerIP, "general-attributes", file=open("../output/ipsec.txt","a"))
+    print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
+    print("tunnel-group", peerIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
+    print("ikev1 pre-shared-key", "<ENTER_PSK_HERE>", file=open("../output/ipsec.txt","a"))
+    print("exit", file=open("../output/ipsec.txt","a"))
+    #secondary
     print("tunnel-group", secondaryIP, "type ipsec-l2l", file=open("../output/ipsec.txt","a"))
     print("tunnel-group", secondaryIP, "general-attributes", file=open("../output/ipsec.txt","a"))
     print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
     print("tunnel-group", secondaryIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
-
-else:
-    "No secondary. Continuing..."
-  
-if ikeVer == "1":
     print("ikev1 pre-shared-key", "<ENTER_PSK_HERE>", file=open("../output/ipsec.txt","a"))
     print("exit", file=open("../output/ipsec.txt","a"))
-elif ikeVer =="2":
-    print("ikev2 remote-authentication pre-shared-key", "<REMOTE PSK>", file=open("../output/ipsec.txt","a"))
-    print("ikev2 local-authentication pre-shared-key", "<LOCALPSK>", file=open("../output/ipsec.txt","a"))
-    print("exit", file=open("../output/ipsec.txt","a"))
+
 else:
-    print("GO KICK ROCKS.... something broke.")
+    #primary
+    print("tunnel-group", peerIP, "type ipsec-l2l", file=open("../output/ipsec.txt","a"))
+    print("tunnel-group", peerIP, "general-attributes", file=open("../output/ipsec.txt","a"))
+    print("default-group-policy", policyName, file=open("../output/ipsec.txt","a"))
+    print("tunnel-group", peerIP, "ipsec-attributes", file=open("../output/ipsec.txt","a"))
+  
+    if ikeVer == "1":
+        print("ikev1 pre-shared-key", "<ENTER_PSK_HERE>", file=open("../output/ipsec.txt","a"))
+        print("exit", file=open("../output/ipsec.txt","a"))
+    elif ikeVer =="2":
+        print("ikev2 remote-authentication pre-shared-key", "<REMOTE_PSK>", file=open("../output/ipsec.txt","a"))
+        print("ikev2 local-authentication pre-shared-key", "<LOCAL_PSK>", file=open("../output/ipsec.txt","a"))
+        print("exit", file=open("../output/ipsec.txt","a"))
+    else:
+        print("GO KICK ROCKS.... something broke.")
 
 ############################
 # Crypto Map configuration #
