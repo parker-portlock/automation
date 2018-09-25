@@ -46,7 +46,7 @@ def CiscoTunObject():
 #Remote object Creation
 			print("Let's create the remote objects.")
 			for i in range(len(remoteAddr)-1):
-				netType = localAddr[i+1][2]
+				netType = remoteAddr[i+1][2]
 				if netType =='':
 					print("object", objectType, remoteAddr[i+1][1], "\n", "host", remoteAddr[i+1][0], file=open("../output/ipsec.txt", "a"))
 				elif netType != '':
