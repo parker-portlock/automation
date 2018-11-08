@@ -18,7 +18,7 @@
 import objectCreate
 import objectGroup
 import getpass
-import paramiko
+import netmiko
 import time
 import sys
 import csv
@@ -162,21 +162,15 @@ print("wr mem", file=open("../output/ipsec.txt","a"))
 with open('../output/ipsec.txt', 'r') as myfile:
     ipsecOut=myfile.read()
 
-ip = input("Hostname/IP: ")
+host = input("Hostname/IP: ")
 username = input("Username: ")
 password = getpass.getpass("Password: ")
-remote_pre=paramiko.SSHClient()
-remote_pre.load_system_host_keys()
-remote_pre.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-remote_pre.connect(ip, username=username, password=password, look_for_keys=False, allow_agent=False)
-remote=remote_pre.invoke_shell()
-time.sleep(5)
-output=remote.recv(65535)
-print (output) 
-remote.send(ipsecOut)
-time.sleep(5)
-output=remote.recv(65535)
-print(output)
+from netmiko import ConnectHandler
+net_connect = ConnectHandler(device_type='cisco_asa',ip=host,username=username,password=password)
+ouptut = net_connect.send_command(ipsecOut)
+print(ouptut)
+
+
 print ("Performing cleanup...")
  
 
