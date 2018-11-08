@@ -1,6 +1,7 @@
 *.txt
 *.csv
 *.json
+*.conf
 !ipsecExample.csv
 !addrExample.csv
 *.tfvars
