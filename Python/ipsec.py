@@ -171,21 +171,10 @@ ouptut = net_connect.send_command(ipsecOut)
 print(ouptut)
 
 
-print ("Performing cleanup...")
- 
-
-
-
-
-
-print ("Your IPSec tunnel configuration is complete. The configuration pushed to your firewall can be found in /output/ipsec.txt.")
-
-
-
-
-
 #################
 # Cleanup Items #
 #################
-
+print ("Performing cleanup...")
 os.remove("../files/encGroups.csv")
+
+print ("Your IPSec tunnel configuration is complete. The configuration pushed to your firewall can be found in /output/ipsec.txt.")
