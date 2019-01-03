@@ -1,5 +1,4 @@
-variable "access_key" {}
-variable "secret_key" {}
+
 variable "region" {}
 variable "vpc_cidr" {}
 variable "name" {}
@@ -8,16 +7,13 @@ variable "pub_subnets" {}
 variable "enc_domain" {}
 variable "vpn_peer" {}
 variable "inst_ip" {}
-variable "public_key" {}
-#variable "ecdsa_key" {}
 variable "azns" {
     default ="us-west-2a"
 }
 
 #Provider Definition#
 provider "aws" {
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
+#  shared_credentials_file = "/Users/parker.portlock/.aws/credentials"
   region = "${var.region}"
 }
 
@@ -82,61 +78,6 @@ module "vpn" {
 }
 
 
-#Creates ACLs#
-resource "aws_network_acl" "public" {
-    vpc_id = "${module.vpc.vpc_id}"
-    subnet_ids = ["${var.pub_subnets}"]
-
-    egress {
-        protocol = "all"
-        rule_no = 10
-        action = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port = 0
-        to_port = 0
-    }
-
-    ingress {
-        protocol = "all"
-        rule_no = 10
-        action = "deny"
-        cidr_block = "0.0.0.0/0"
-        from_port = 0
-        to_port = 0
-    }
-
-    tags {
-        Name = "${var.name}_dmz"
-    }
-}
-
-resource "aws_network_acl" "private" {
-    vpc_id = "${module.vpc.vpc_id}"
-    subnet_ids = ["${var.priv_subnets}"]
-
-    egress {
-        protocol = "all"
-        rule_no = 10
-        action = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port = 0
-        to_port = 0
-    }
-
-    ingress {
-        protocol = "all"
-        rule_no = 10
-        action = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port = 0
-        to_port = 0
-    }
-
-    tags {
-        Name = "${var.name}_internal"
-    }
-}
-
 #Creates Service Group#
 module "sg" {
     source = "./sg"
@@ -144,17 +85,12 @@ module "sg" {
 }
 
 #Creates Key Pair for Instance#
-resource "aws_key_pair" "broly" {
-  key_name = "broly"
-  public_key = "${var.public_key}"
-
-}
-
-#resource "aws_key_pair" "broly_ecdsa" {
-#  key_name = "broly"
-#  public_key = "${var.ecdsa_key}"
+#resource "aws_key_pair" "pportlock" {
+#  key_name = "pportlock"
+#  public_key = "${var.public_key}"
 #
 #}
+
 
 #Creates Test Instance#
 module "ec2" {
@@ -162,10 +98,8 @@ module "ec2" {
   private_ip = "${var.inst_ip}"
   subnet_id = "${module.priv_subnet.subnet_ids}"
   security_groups = ["${module.sg.sg_id}"]
-  key_name = "${aws_key_pair.broly.key_name}"
+  key_name = "pportlock"
 }
-
-
 
 
 output "vpn1_address" {
